@@ -1,0 +1,14 @@
+{
+  "name": "wirecapture",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Offline client-to-server WebSocket capture decoding pipeline",
+  "engines": { "node": "22.16.x" },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "npm run build && node --test tests/*.test.mjs",
+    "demo": "npm run build && node demo.mjs"
+  },
+  "devDependencies": { "typescript": "5.8.3" }
+}
