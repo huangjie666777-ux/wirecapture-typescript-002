@@ -2,14 +2,16 @@
 
 An existing, offline client-to-server WebSocket capture pipeline in TypeScript.
 `wire.ts` parses contiguous frames, `messages.ts` assembles messages, and
-`capture.ts` provides the synchronous `parseCapture` API. `Decoder` currently
-copies the growing capture on every `push` and parses it only at `finish`.
-Refactor this adapter into a genuinely incremental decoder without breaking
-the public whole-capture entry or the existing regression tests.
+`capture.ts` provides the synchronous `parseCapture` API. `Decoder` is a
+genuinely incremental decoder: every `push` consumes its chunk immediately,
+returns the events completed by those bytes, and retains only bounded
+parser state (unfinished message payload, an unfinished control payload and
+up to 14 header bytes). The public whole-capture entry and the legacy
+regression tests are unchanged.
 
 Node.js 22.16.0 and TypeScript 5.8.3 are prepared. Run `npm test` or `npm run demo`;
-no dependency installation or network access is needed. The current demo prints
-its events at EOF, illustrating the behavior that the refactor must change.
+no dependency installation or network access is needed. The demo feeds the
+decoder one byte at a time and prints events as each push completes them.
 
 ## Public contract
 
