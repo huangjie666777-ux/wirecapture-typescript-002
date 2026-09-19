@@ -1,0 +1,3 @@
+Python 3.10.12
+Third-party dependencies: none
+Runtime libraries: asyncio, unittest (Python standard library)
